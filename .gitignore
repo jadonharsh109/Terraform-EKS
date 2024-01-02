@@ -1,0 +1,6 @@
+.terraform
+.terraform.lock*
+terraform.tfstate*
+.terraform.tfstate*
+terraform.tfvars
+ssh-key*
