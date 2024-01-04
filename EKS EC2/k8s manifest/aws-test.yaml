@@ -1,0 +1,30 @@
+---
+# Creating an Service Account in k8s and connecting with aws role "eks-oidc" 
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: aws-test  # Service Account Name
+  namespace: default
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::998070853703:role/eks-oidc  # connecting with aws role "eks-oidc"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: aws-cli
+  namespace: default
+spec:
+  serviceAccountName: aws-test  # Connecting with K8s Service Account "aws-test"
+  containers:
+    - name: aws-cli
+      image: amazon/aws-cli
+      command: ["/bin/bash", "-c", "--"]
+      args: ["while true; do sleep 30; done;"]
+  tolerations:
+    - operator: Exists
+      effect: NoSchedule
+
+# Testing: kubectl exec aws-cli -- aws s3api list-buckets
+
+
+

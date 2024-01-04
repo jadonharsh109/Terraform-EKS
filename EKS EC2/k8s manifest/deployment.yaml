@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: youtube-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: youtube
+  template:
+    metadata:
+      labels:
+        app: youtube
+    spec:
+      containers:
+      - name: youtube
+        image: jadonharsh/youtube
+        ports:
+        - name: web
+          containerPort: 80
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 250m
+          limits:
+            memory: 256Mi
+            cpu: 250m
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: role
+                operator: In
+                values:
+                - general
+      # tolerations:
+      # - key: team
+      #   operator: Equal
+      #   value: devops
+      #   effect: NoSchedule
