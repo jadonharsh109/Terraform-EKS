@@ -1,0 +1,39 @@
+---
+# Service to expose cluster IP 
+apiVersion: v1
+kind: Service
+metadata:
+  name: youtube-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: youtube
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: web
+
+
+---
+
+# Uncomment below code to use type: LoadBalancer to work with eks cluster.
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: youtube-svc
+#   namespace: default
+#   annotations:
+#     service.beta.kubernetes.io/aws-load-balancer-type: external
+#     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+#     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+#     # service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+# spec:
+#   type: LoadBalancer
+#   ports:
+#     - protocol: TCP
+#       port: 80
+#       targetPort: web
+#   selector:
+#     app: youtube
+
