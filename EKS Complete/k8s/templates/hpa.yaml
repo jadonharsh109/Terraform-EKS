@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v1 # API version for autoscaling
+kind: HorizontalPodAutoscaler # Kind of resource
+metadata:
+  name: hpa-deployment # Name of the HPA
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1 # API version of the target resource
+    kind: Deployment # Kind of the target resource (Deployment, ReplicaSet, StatefulSet)
+    name: youtube-deployment # Name of the target resource
+  minReplicas: 1 # Minimum number of replicas
+  maxReplicas: 10 # Maximum number of replicas
+  metrics:
+    - type: Resource # Metric type (Resource or Pods)
+      resource:
+        name: cpu # Resource name (cpu or memory)
+        target:
+          type: Utilization # Target type (Utilization or AverageValue)
+          averageUtilization: 50 # Target utilization percentage

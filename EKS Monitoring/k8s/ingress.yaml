@@ -14,13 +14,8 @@ metadata:
     # alb.ingress.kubernetes.io/ssl-redirect: '443' // Redirect all traffic to HTTPS
 spec:
   ingressClassName: alb
-  defaultBackend:
-    service:
-      name: youtube-svc
-      port:
-        number: 80
   rules:
-    - host: terraform.jadonharsh.me
+    - host: demo.jadonharsh.xyz
       http:
         paths:
           - path: /
@@ -28,12 +23,5 @@ spec:
             backend:
               service:
                 name: youtube-svc
-                port:
-                  number: 80
-          - path: /app
-            pathType: Prefix
-            backend:
-              service:
-                name: nginx-svc
                 port:
                   number: 80

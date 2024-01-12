@@ -9,7 +9,7 @@ resource "helm_release" "aws-load-balancer-controller" {
 
   set {
     name  = "clusterName"
-    value = aws_eks_cluster.eks-fargate-cluster.id
+    value = aws_eks_cluster.eks-ec2-cluster.name
   }
   set {
     name  = "image.tag"
@@ -25,17 +25,17 @@ resource "helm_release" "aws-load-balancer-controller" {
   }
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = aws_iam_role.aws_load_balancer_controller.arn
+    value = aws_iam_role.aws_load_balancer_controller.arn // Service account 
   }
-  # EKS Fargate specific
+
   set {
     name  = "region"
     value = var.region
   }
   set {
     name  = "vpcId"
-    value = aws_vpc.eks-fargate-vpc.id
+    value = aws_vpc.eks-ec2-vpc.id
   }
 
-  depends_on = [aws_eks_fargate_profile.aws_eks_fargate]
+  depends_on = [aws_eks_node_group.private-nodes] // Depends on provate node grp
 }

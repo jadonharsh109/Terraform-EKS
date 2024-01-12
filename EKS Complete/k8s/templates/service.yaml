@@ -1,21 +1,18 @@
 ---
-# Service to expose cluster IP 
+# Service to expose cluster IP
 apiVersion: v1
 kind: Service
 metadata:
   name: youtube-svc
 spec:
-  type: ClusterIP
   selector:
     app: youtube
   ports:
     - protocol: TCP
       port: 80
-      targetPort: web
+      targetPort: 80
 
-
-# ---
-
+---
 # Uncomment below code to use type: LoadBalancer to work with eks cluster.
 
 # apiVersion: v1
