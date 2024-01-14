@@ -1,3 +1,4 @@
+// Installing monitoring stack (prometheus-grafana) to kubernetes cluster.
 resource "helm_release" "prometheus" {
   depends_on       = [aws_eks_node_group.private-nodes]
   name             = "prometheus"

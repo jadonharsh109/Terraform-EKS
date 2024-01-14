@@ -1,3 +1,5 @@
+// This will help connecting external service to AWS Iam Auth.
+
 data "tls_certificate" "eks" {
   url = aws_eks_cluster.eks-ec2-cluster.identity[0].oidc[0].issuer
 }

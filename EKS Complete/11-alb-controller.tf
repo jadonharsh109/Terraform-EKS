@@ -37,5 +37,5 @@ resource "helm_release" "aws-load-balancer-controller" {
     value = aws_vpc.eks-ec2-vpc.id
   }
 
-  depends_on = [aws_eks_node_group.private-nodes] // Depends on provate node grp
+  depends_on = [aws_eks_node_group.private-nodes] // Depends on private node grp
 }

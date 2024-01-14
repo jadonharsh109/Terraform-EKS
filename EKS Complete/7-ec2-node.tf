@@ -82,8 +82,9 @@ resource "aws_eks_node_group" "private-nodes" {
     aws_iam_role_policy_attachment.eks-ec2-nodes-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.eks-ec2-nodes-AmazonEC2ContainerRegistryReadOnly, aws_eks_cluster.eks-ec2-cluster
   ]
+
   provisioner "local-exec" {
     when    = create
-    command = "aws eks update-kubeconfig --name ${var.eks_cluster_name}"
+    command = "aws eks update-kubeconfig --name ${var.eks_cluster_name}" // This will pull the kubeconfig file from aws eks.
   }
 }
